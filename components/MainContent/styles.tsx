@@ -10,15 +10,20 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   h1 {
-    color: #2f2f2f;
+    color: #0c0c0c;
     font-size: 56px;
     font-weight: bold;
     text-align: center;
     font-family: GmarketSansBold !important;
   }
   p {
+    margin-top: 20px;
     color: #2f2f2f;
     font-size: 14px;
+  }
+  button {
+    margin-top: 20px;
   }
 `;

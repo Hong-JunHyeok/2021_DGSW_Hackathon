@@ -20,7 +20,7 @@ export const NavBar = styled.header`
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: blue;
+      background-color: #3181f6;
     }
     .content {
       display: flex;
