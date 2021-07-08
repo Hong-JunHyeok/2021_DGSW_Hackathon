@@ -1,13 +1,29 @@
 import Head from "next/head";
 import React, { FC } from "react";
-import { Header } from "./styles";
+import { Content, Footer, NavBar } from "./styles";
+import Link from "next/link";
 
 const AppLayout: FC = ({ children }) => {
   return (
     <>
-      <Header />
-      {children}
-      {/* <Footer /> */}
+      <NavBar>
+        <div className="container">
+          <div className="logo"></div>
+          <ul className="content">
+            <li>
+              <Link href="/">Main</Link>
+            </li>
+            <li>
+              <Link href="/">IOT Manager</Link>
+            </li>
+            <li>
+              <Link href="/">SQL commander</Link>
+            </li>
+          </ul>
+        </div>
+      </NavBar>
+      <Content>{children}</Content>
+      <Footer>All Copyright reserved DGOT</Footer>
     </>
   );
 };
