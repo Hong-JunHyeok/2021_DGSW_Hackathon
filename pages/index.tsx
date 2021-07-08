@@ -1,8 +1,13 @@
 import React from "react";
 import AppLayout from "../components/AppLayout";
+import MainContent from "../components/MainContent";
 
 const IndexPage = () => {
-  return <AppLayout>인덱스</AppLayout>;
+  return (
+    <AppLayout>
+      <MainContent />
+    </AppLayout>
+  );
 };
 
 export default IndexPage;

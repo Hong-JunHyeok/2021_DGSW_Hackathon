@@ -1,4 +1,3 @@
-import Head from "next/head";
 import React, { FC } from "react";
 import { Content, Footer, NavBar } from "./styles";
 import Link from "next/link";

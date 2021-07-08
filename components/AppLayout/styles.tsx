@@ -4,9 +4,10 @@ export const NavBar = styled.header`
   width: 100%;
   position: fixed;
   left: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(50px);
   .nav_no_top {
     border-bottom: 1px solid black;
-    backdrop-filter: blur(30px);
   }
   .container {
     padding: 10px;
@@ -33,15 +34,16 @@ export const NavBar = styled.header`
         border-radius: 10px;
       }
       li > a:hover {
-        background-color: #bfbfbf;
+        background-color: rgba(0, 0, 0, 0.2);
       }
     }
   }
 `;
 
 export const Content = styled.main`
-  padding-top: 100px;
   min-height: 80vh;
+  width: 100%;
+  height: 100%;
 `;
 
 export const Footer = styled.footer`
