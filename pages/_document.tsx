@@ -4,9 +4,9 @@ import Document, {
   Main,
   NextScript,
   DocumentContext,
+  Head,
 } from "next/document";
 import { ServerStyleSheet } from "styled-components";
-import Head from "next/head";
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -39,10 +39,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <meta charSet="UTF-8" />
-          <title>DGOT</title>
-        </Head>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />
