@@ -16,10 +16,10 @@ const AppLayout: FC = ({ children }) => {
             <li className={"/" === pathname ? "active" : ""}>
               <Link href="/">Main</Link>
             </li>
-            <li>
-              <Link href="/manager">IOT Manager</Link>
+            <li className={"/manage" === pathname ? "active" : ""}>
+              <Link href="/manage">IOT Manager</Link>
             </li>
-            <li>
+            <li className={"/sql" === pathname ? "active" : ""}>
               <Link href="/sql">SQL commander</Link>
             </li>
           </ul>
