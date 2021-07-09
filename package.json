@@ -25,6 +25,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-icons": "^4.2.0",
+    "react-json-viewer": "2.1.0",
     "react-loader-spinner": "^4.0.0",
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
