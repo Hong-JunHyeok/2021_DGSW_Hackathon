@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import AppLayout from "../components/AppLayout";
 import styled from "styled-components";
 import DeviceController from "../components/DeviceController";
@@ -6,7 +6,13 @@ import { GoLightBulb } from "react-icons/go";
 import { HiLightBulb } from "react-icons/hi";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { LED_TOGGLE_REQUEST, SERVO_TOGGLE_REQUEST } from "../modules/device";
+import {
+  GET_INIT_REQUEST,
+  LED_TOGGLE_REQUEST,
+  SERVO_TOGGLE_REQUEST,
+} from "../modules/device";
+import wrapper from "../store";
+import { END } from "@redux-saga/core";
 
 const ManageLayout = styled.div`
   width: 100%;
@@ -93,5 +99,15 @@ const Manage = () => {
     </AppLayout>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    context.store.dispatch({
+      type: GET_INIT_REQUEST,
+    });
+    context.store.dispatch(END);
+    await context.store.sagaTask!.toPromise();
+  }
+);
 
 export default Manage;

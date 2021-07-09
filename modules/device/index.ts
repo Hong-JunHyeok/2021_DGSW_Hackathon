@@ -2,6 +2,10 @@ import produce from "immer";
 import { AnyAction } from "redux";
 
 export const initialState = {
+  //LED, Servo 상태값 가져오기
+  initLoading: false,
+  initError: null,
+
   //LED 토글
   ledState: false,
   ledToggleLoading: false,
@@ -12,6 +16,10 @@ export const initialState = {
   servoToggleLoading: false,
   servoToggleError: null,
 };
+
+export const GET_INIT_REQUEST = "GET_INIT_REQUEST" as const;
+export const GET_INIT_SUCCESS = "GET_INIT_SUCCESS" as const;
+export const GET_INIT_FAILURE = "GET_INIT_FAILURE" as const;
 
 export const LED_TOGGLE_REQUEST = "LED_TOGGLE_REQUEST" as const;
 export const LED_TOGGLE_SUCCESS = "LED_TOGGLE_SUCCESS" as const;
@@ -24,6 +32,34 @@ export const SERVO_TOGGLE_FAILURE = "SERVO_TOGGLE_FAILURE" as const;
 const reducer = (state = initialState, action: AnyAction) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case GET_INIT_REQUEST:
+        draft.initLoading = true;
+        draft.ledState = false;
+        draft.servoState = false;
+        draft.initError = null;
+        break;
+      case GET_INIT_SUCCESS:
+        draft.ledState = action.payload.led;
+        draft.servoState = action.payload.servo;
+        draft.initLoading = false;
+        break;
+      case GET_INIT_FAILURE:
+        draft.initError = action.payload;
+        break;
+
+      case LED_TOGGLE_REQUEST:
+        draft.ledToggleLoading = true;
+        draft.ledState = false;
+        draft.ledToggleError = null;
+        break;
+      case LED_TOGGLE_SUCCESS:
+        draft.ledState = action.payload;
+        draft.ledToggleLoading = false;
+        break;
+      case LED_TOGGLE_FAILURE:
+        draft.ledToggleError = action.payload;
+        break;
+
       case LED_TOGGLE_REQUEST:
         draft.ledToggleLoading = true;
         draft.ledState = false;

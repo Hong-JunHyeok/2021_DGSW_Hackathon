@@ -4,15 +4,21 @@ import { DataList } from "./styles";
 
 interface Props {
   dataList: Array<any>;
+  loading: boolean;
 }
 
-const SqlDataList: VFC<Props> = ({ dataList }) => {
+const SqlDataList: VFC<Props> = ({ dataList, loading }) => {
   return (
     <DataList>
       <h1>🔎 검색된 결과</h1>
-      {dataList.map((data) => {
-        return <JSONViewer key={data.id} json={data} />;
-      })}
+
+      {loading ? (
+        <>검색중</>
+      ) : (
+        dataList.map((data) => {
+          return <JSONViewer key={data.id} json={data} />;
+        })
+      )}
     </DataList>
   );
 };

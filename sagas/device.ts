@@ -1,6 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import { all, call, fork, put, takeLatest } from "redux-saga/effects";
 import {
+  GET_INIT_FAILURE,
+  GET_INIT_REQUEST,
+  GET_INIT_SUCCESS,
   LED_TOGGLE_FAILURE,
   LED_TOGGLE_REQUEST,
   LED_TOGGLE_SUCCESS,
@@ -49,6 +52,26 @@ function* toggleServo(action: any) {
   }
 }
 
+function getInitAPI() {
+  return axios.get(`/status`);
+}
+
+function* getInit() {
+  try {
+    const result: AxiosResponse = yield call(getInitAPI);
+    yield put({
+      type: GET_INIT_SUCCESS,
+      payload: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: GET_INIT_FAILURE,
+      payload: error.response.data,
+    });
+  }
+}
+
 function* watchToggleLed() {
   yield takeLatest(LED_TOGGLE_REQUEST, toggleLed);
 }
@@ -57,6 +80,10 @@ function* watchToggleServo() {
   yield takeLatest(SERVO_TOGGLE_REQUEST, toggleServo);
 }
 
+function* watchGetInit() {
+  yield takeLatest(GET_INIT_REQUEST, getInit);
+}
+
 export default function* deviceSaga() {
-  yield all([fork(watchToggleLed), fork(watchToggleServo)]);
+  yield all([fork(watchToggleLed), fork(watchToggleServo), fork(watchGetInit)]);
 }
