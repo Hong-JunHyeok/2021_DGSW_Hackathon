@@ -21,6 +21,9 @@ const ManageLayout = styled.div`
     margin-bottom: 20px;
     font-family: GmarketSansBold;
   }
+  span {
+    margin-bottom: 10px;
+  }
   .row {
     width: 100%;
     display: flex;
@@ -65,6 +68,7 @@ const Manage = () => {
     <AppLayout>
       <ManageLayout>
         <h1>기기들의 상태 확인과 기기 조작을 해보세요.</h1>
+        <span>간단한 ON/OFF동작으로 내 기기를 조작할 수 있습니다.</span>
         <div className="row">
           <DeviceController
             title="🚨LED"

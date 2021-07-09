@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import Button from "../Button";
 import { Container } from "./styles";
+import Loader from "react-loader-spinner";
 
 interface IProps {
   title: string;
@@ -24,7 +25,13 @@ const DeviceController: FC<IProps> = ({
   return (
     <Container>
       <h1>{title}</h1>
-      {isLoading ? "로딩중" : isOn ? onImage : offImage}
+      {isLoading ? (
+        <Loader type="Puff" color="#00BFFF" height={50} />
+      ) : isOn ? (
+        onImage
+      ) : (
+        offImage
+      )}
       <div className="row">
         <Button onClick={handleOnBtn}>ON</Button>
         <Button onClick={handleOffBtn}>OFF</Button>
