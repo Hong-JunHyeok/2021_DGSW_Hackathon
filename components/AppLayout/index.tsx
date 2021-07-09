@@ -21,6 +21,9 @@ const AppLayout: FC = ({ children }) => {
             <li className={"/sql" === pathname ? "active" : ""}>
               <Link href="/sql">SQL commander</Link>
             </li>
+            <li className={"/videos" === pathname ? "active" : ""}>
+              <Link href="/videos">Videos</Link>
+            </li>
           </ul>
         </div>
       </NavBar>

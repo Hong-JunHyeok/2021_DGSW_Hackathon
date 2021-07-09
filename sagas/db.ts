@@ -8,7 +8,6 @@ import {
 } from "../modules/db";
 
 function dbSearchAPI(sql: string) {
-  console.log(sql);
   return axios.post(`/db/execute`, {
     sql,
   });
