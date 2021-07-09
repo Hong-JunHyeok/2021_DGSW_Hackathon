@@ -13,7 +13,7 @@ export const Container = styled.div`
   flex-direction: column;
   h1 {
     color: #0c0c0c;
-    font-size: 56px;
+    font-size: 68px;
     font-weight: bold;
     text-align: center;
     font-family: GmarketSansBold !important;

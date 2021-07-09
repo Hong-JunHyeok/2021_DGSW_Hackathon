@@ -29,9 +29,6 @@ export const NavBar = styled.header`
       align-items: center;
       .active {
         font-weight: bold;
-        a {
-          border-bottom: 5px solid #3181f6;
-        }
       }
       li > a {
         padding: 20px;

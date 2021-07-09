@@ -5,7 +5,6 @@ import { useRouter } from "next/dist/client/router";
 
 const AppLayout: FC = ({ children }) => {
   const { pathname } = useRouter();
-  console.log(pathname);
 
   return (
     <>
