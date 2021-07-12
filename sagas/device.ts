@@ -59,6 +59,7 @@ function getInitAPI() {
 function* getInit() {
   try {
     const result: AxiosResponse = yield call(getInitAPI);
+    console.log(result);
     yield put({
       type: GET_INIT_SUCCESS,
       payload: result.data,

@@ -20,6 +20,7 @@ const MyApp: NextPage<AppProps> = ({ Component }) => {
         </style>
       </Head>
       <Component />
+      <div id="root-modal"></div>
     </>
   );
 };

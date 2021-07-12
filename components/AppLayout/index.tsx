@@ -2,15 +2,17 @@ import React, { FC } from "react";
 import { Content, Footer, NavBar } from "./styles";
 import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
+import { useSelector } from "react-redux";
 
 const AppLayout: FC = ({ children }) => {
   const { pathname } = useRouter();
+  const { me } = useSelector((state: any) => state.user);
 
   return (
     <>
       <NavBar>
         <div className="container">
-          <div className="logo"></div>
+          <div className="user">{me ? `${me.name}님, 환영합니다.` : null}</div>
           <ul className="content">
             <li className={"/" === pathname ? "active" : ""}>
               <Link href="/">Main</Link>

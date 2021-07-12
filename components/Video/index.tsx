@@ -4,6 +4,7 @@ import { makeJpg, removeH264 } from "../../util/urlFormatter";
 import { VideoList } from "./styles";
 import axios from "axios";
 import Button from "../Button";
+import { RootState } from "../../modules";
 
 const Video = () => {
   const { videoData } = useSelector((state: any) => state.video);

@@ -1,29 +1,52 @@
 import { useRouter } from "next/dist/client/router";
-import React from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import Button from "../Button";
 import { Container } from "./styles";
+import useModal from "../../hooks/useModal";
+import LoginForm from "../LoginForm";
+import { useSelector } from "react-redux";
+import { RootState } from "../../modules";
 
 const MainContent = () => {
   const { push } = useRouter();
+  const { me } = useSelector((state: any) => state.user);
+  const { ModalPortal, openModal, closeModal } = useModal();
+
   return (
     <Container>
       <h1>
-        더 나은 미래를 위해 <br />
-        DGOT 하세요.
+        {me
+          ? `환영합니다. ${me.name}님`
+          : `더 나은 미래를 위해
+        DGOT 하세요.`}
       </h1>
       <p>
         DGOT는 웹과 IOT를 연결해, 사용자가 더욱 쉽게 접근하게 할 수 있는
         플렛폼입니다.
       </p>
-      <Button
-        onClick={() => {
-          push("/manage");
-        }}
-      >
-        시작하기
-      </Button>
+      {me ? (
+        <Button
+          onClick={() => {
+            push("/manage");
+          }}
+        >
+          시작하기
+        </Button>
+      ) : (
+        <Button
+          onClick={() => {
+            openModal();
+          }}
+        >
+          로그인
+        </Button>
+      )}
+
+      <ModalPortal>
+        <LoginForm closeModal={closeModal} />
+      </ModalPortal>
     </Container>
   );
 };
 
-export default MainContent;
+export default memo(MainContent);

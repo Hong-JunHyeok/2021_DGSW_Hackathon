@@ -1,7 +1,7 @@
 import produce from "immer";
 import { AnyAction } from "redux";
 
-const initialState = {
+export const initialState = {
   videoData: null,
   videoLoading: false,
   videoError: null,

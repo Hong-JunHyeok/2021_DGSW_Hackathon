@@ -1,12 +1,22 @@
 import { AnyAction, CombinedState, combineReducers } from "redux";
 import { HYDRATE } from "next-redux-wrapper";
 
-import user from "./user";
-import device from "./device";
-import db from "./db";
-import video from "./video";
+import user, { initialState as userInit } from "./user";
+import device, { initialState as deviceInit } from "./device";
+import db, { initialState as dbInit } from "./db";
+import video, { initialState as videoInit } from "./video";
 
-const rootReducer = (state: any, action: AnyAction): CombinedState<any> => {
+export interface RootState {
+  user: typeof userInit;
+  device: typeof deviceInit;
+  db: typeof dbInit;
+  video: typeof videoInit;
+}
+
+const rootReducer = (
+  state: any,
+  action: AnyAction
+): CombinedState<RootState> => {
   switch (action.type) {
     case HYDRATE:
       return action.payload;

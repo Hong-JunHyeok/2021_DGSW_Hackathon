@@ -16,11 +16,11 @@ export const NavBar = styled.header`
     height: 100%;
     display: flex;
     justify-content: space-around;
-    .logo {
-      width: 50px;
+    .user {
+      display: flex;
+      align-items: center;
       height: 50px;
-      border-radius: 50%;
-      background-color: #3181f6;
+      font-size: 20px;
     }
     .content {
       display: flex;
