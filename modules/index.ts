@@ -5,12 +5,14 @@ import user, { initialState as userInit } from "./user";
 import device, { initialState as deviceInit } from "./device";
 import db, { initialState as dbInit } from "./db";
 import video, { initialState as videoInit } from "./video";
+import history, { initialState as historyInit } from "./history";
 
 export interface RootState {
   user: typeof userInit;
   device: typeof deviceInit;
   db: typeof dbInit;
   video: typeof videoInit;
+  history: typeof historyInit;
 }
 
 const rootReducer = (
@@ -19,13 +21,14 @@ const rootReducer = (
 ): CombinedState<RootState> => {
   switch (action.type) {
     case HYDRATE:
-      return action.payload;
+      return { ...state, ...action.payload };
     default:
       const combinedReducer = combineReducers({
         user,
         device,
         db,
         video,
+        history,
       });
       return combinedReducer(state, action);
   }

@@ -24,7 +24,7 @@ export const NavBar = styled.header`
     }
     .content {
       display: flex;
-      width: 500px;
+      width: 700px;
       justify-content: space-around;
       align-items: center;
       .active {

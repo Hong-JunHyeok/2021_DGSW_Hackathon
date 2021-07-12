@@ -26,6 +26,16 @@ const AppLayout: FC = ({ children }) => {
             <li className={"/videos" === pathname ? "active" : ""}>
               <Link href="/videos">Videos</Link>
             </li>
+            <li className={"/history" === pathname ? "active" : ""}>
+              <Link href="/history">history</Link>
+            </li>
+            {me?.isAdmin ? (
+              <li className={"/admin" === pathname ? "active" : ""}>
+                <Link href="/admin">admin</Link>
+              </li>
+            ) : (
+              "일반 회원입니다."
+            )}
           </ul>
         </div>
       </NavBar>

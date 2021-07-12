@@ -12,13 +12,7 @@ const SqlDataList: VFC<Props> = ({ dataList, loading }) => {
     <DataList>
       <h1>🔎 검색된 결과</h1>
 
-      {loading ? (
-        <>검색중</>
-      ) : (
-        dataList.map((data) => {
-          return <JSONViewer key={data.id} json={data} />;
-        })
-      )}
+      {loading ? <>검색중</> : <JSONViewer json={dataList} />}
     </DataList>
   );
 };

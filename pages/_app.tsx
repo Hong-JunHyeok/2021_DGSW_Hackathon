@@ -5,6 +5,8 @@ import Head from "next/head";
 import { GlobalStyle } from "../styles/GlobalStyle";
 import { NextPage } from "next";
 import wrapper from "../store";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MyApp: NextPage<AppProps> = ({ Component }) => {
   return (
@@ -20,6 +22,7 @@ const MyApp: NextPage<AppProps> = ({ Component }) => {
         </style>
       </Head>
       <Component />
+      <ToastContainer />
       <div id="root-modal"></div>
     </>
   );

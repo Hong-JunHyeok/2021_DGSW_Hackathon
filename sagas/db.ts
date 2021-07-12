@@ -6,6 +6,7 @@ import {
   DB_SEARCH_REQUEST,
   DB_SEARCH_SUCCESS,
 } from "../modules/db";
+import { toast } from "react-toastify";
 
 function dbSearchAPI(sql: string) {
   return axios.post(`/db/execute`, {
@@ -21,6 +22,7 @@ function* dbSearch(action: AnyAction) {
       payload: result.data,
     });
   } catch (error) {
+    toast.error(error.response.data);
     console.error(error);
     yield put({
       type: DB_SEARCH_FAILURE,

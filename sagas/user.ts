@@ -2,6 +2,9 @@ import { all, call, fork, put, takeLatest } from "redux-saga/effects";
 import axios, { AxiosResponse } from "axios";
 import { set } from "js-cookie";
 import {
+  GET_USERS_FAILURE,
+  GET_USERS_REQUEST,
+  GET_USERS_SUCCESS,
   GET_MY_INFO_FAILURE,
   GET_MY_INFO_REQUEST,
   GET_MY_INFO_SUCCESS,
@@ -56,6 +59,26 @@ function* getMyInfo() {
   }
 }
 
+function getUsersAPI() {
+  return axios.get("/admin");
+}
+
+function* getUsers() {
+  try {
+    const result: AxiosResponse = yield call(getUsersAPI);
+    yield put({
+      type: GET_USERS_SUCCESS,
+      payload: result.data.result,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: GET_USERS_FAILURE,
+      payload: error.response.data,
+    });
+  }
+}
+
 function* watchLogin() {
   yield takeLatest(LOG_IN_REQUEST, login);
 }
@@ -64,6 +87,10 @@ function* watchGetMyInfo() {
   yield takeLatest(GET_MY_INFO_REQUEST, getMyInfo);
 }
 
+function* watchGetUsers() {
+  yield takeLatest(GET_USERS_REQUEST, getUsers);
+}
+
 export default function* userSaga() {
-  yield all([fork(watchLogin), fork(watchGetMyInfo)]);
+  yield all([fork(watchLogin), fork(watchGetMyInfo), fork(watchGetUsers)]);
 }

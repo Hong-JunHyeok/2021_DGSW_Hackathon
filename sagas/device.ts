@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { toast } from "react-toastify";
 import { all, call, fork, put, takeLatest } from "redux-saga/effects";
 import {
   GET_INIT_FAILURE,
@@ -44,7 +45,7 @@ function* toggleServo(action: any) {
       payload: result.data.servo,
     });
   } catch (error) {
-    console.error(error);
+    toast.error(error.response.data);
     yield put({
       type: SERVO_TOGGLE_FAILURE,
       payload: error.response.data,

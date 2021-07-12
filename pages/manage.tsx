@@ -13,30 +13,10 @@ import {
 } from "../modules/device";
 import wrapper from "../store";
 import { END } from "@redux-saga/core";
-
-const ManageLayout = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: column;
-  padding-top: 100px;
-  h1 {
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    font-family: GmarketSansBold;
-  }
-  span {
-    margin-bottom: 10px;
-  }
-  .row {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    margin-bottom: 20px;
-  }
-`;
+import { GET_MY_INFO_REQUEST } from "../modules/user";
+import cookies from "next-cookies";
+import axios from "axios";
+import { PageLayout } from "../styles/PageLayout";
 
 const Manage = () => {
   const dispatch = useDispatch();
@@ -72,7 +52,7 @@ const Manage = () => {
 
   return (
     <AppLayout>
-      <ManageLayout>
+      <PageLayout>
         <h1>기기들의 상태 확인과 기기 조작을 해보세요.</h1>
         <span>간단한 ON/OFF동작으로 내 기기를 조작할 수 있습니다.</span>
         <div className="row">
@@ -95,16 +75,23 @@ const Manage = () => {
             isLoading={servoToggleLoading}
           />
         </div>
-      </ManageLayout>
+      </PageLayout>
     </AppLayout>
   );
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
+    const allCookies = cookies(context);
+    axios.defaults.headers.Authorization = `Bearer ${allCookies.access_token}`;
+
     context.store.dispatch({
       type: GET_INIT_REQUEST,
     });
+    context.store.dispatch({
+      type: GET_MY_INFO_REQUEST,
+    });
+
     context.store.dispatch(END);
     await context.store.sagaTask!.toPromise();
   }

@@ -1,21 +1,29 @@
-import axios from "axios";
-import cookies from "next-cookies";
 import React from "react";
-import { END } from "redux-saga";
-import styled from "styled-components";
 import AppLayout from "../components/AppLayout";
-import Video from "../components/Video";
-import { GET_MY_INFO_REQUEST } from "../modules/user";
-import { GET_VIDEOS_REQUEST } from "../modules/video";
 import wrapper from "../store";
+import cookies from "next-cookies";
+import axios from "axios";
+import { END } from "redux-saga";
+import { GET_HISTORY_REQUEST } from "../modules/history";
+import { useSelector } from "react-redux";
+import HistoryList from "../components/HistoryList";
+import styled from "styled-components";
+import { GET_MY_INFO_REQUEST } from "../modules/user";
 import { PageLayout } from "../styles/PageLayout";
 
-const Videos = () => {
+const History = () => {
+  const { led, servo } = useSelector(
+    (state: any) => state.history?.historyData
+  );
+
   return (
     <AppLayout>
       <PageLayout>
-        <h1>🕵️ 초음파 센서에 접근한 사람을 감지합니다.</h1>
-        <Video />
+        <h1>조작된 기기들의 History를 조회합니다.</h1>
+        <div className="row">
+          <HistoryList historyList={led} title="LED" />
+          <HistoryList historyList={servo} title="Servo" />
+        </div>
       </PageLayout>
     </AppLayout>
   );
@@ -27,15 +35,15 @@ export const getServerSideProps = wrapper.getServerSideProps(
     axios.defaults.headers.Authorization = `Bearer ${allCookies.access_token}`;
 
     context.store.dispatch({
-      type: GET_VIDEOS_REQUEST,
+      type: GET_HISTORY_REQUEST,
     });
-
     context.store.dispatch({
       type: GET_MY_INFO_REQUEST,
     });
+
     context.store.dispatch(END);
     await context.store.sagaTask!.toPromise();
   }
 );
 
-export default Videos;
+export default History;

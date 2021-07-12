@@ -10,6 +10,10 @@ export const initialState = {
   loadMyInfoDone: false,
   loadMyInfoError: null,
 
+  usersLoading: false,
+  usersError: null,
+  usersData: null,
+
   me: null,
 };
 
@@ -21,11 +25,28 @@ export const LOG_IN_REQUEST = "LOG_IN_REQUEST" as const;
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS" as const;
 export const LOG_IN_FAILURE = "LOG_IN_FAILURE" as const;
 
+export const GET_USERS_REQUEST = "GET_USERS_REQUEST" as const;
+export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS" as const;
+export const GET_USERS_FAILURE = "GET_USERS_FAILURE" as const;
+
 export const LOG_OUT = "LOG_OUT" as const;
 
 const reducer = (state = initialState, action: AnyAction) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case GET_USERS_REQUEST:
+        draft.usersError = null;
+        draft.usersLoading = true;
+        draft.usersData = null;
+        break;
+      case GET_USERS_SUCCESS:
+        draft.usersLoading = false;
+        draft.usersData = action.payload;
+        break;
+      case GET_USERS_FAILURE:
+        draft.usersLoading = false;
+        draft.usersError = action.payload;
+        break;
       case GET_MY_INFO_REQUEST:
         draft.loadMyInfoLoading = false;
         draft.loadMyInfoDone = false;
