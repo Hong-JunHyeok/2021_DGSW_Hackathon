@@ -1,9 +1,6 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import AppLayout from "../components/AppLayout";
-import styled from "styled-components";
 import DeviceController from "../components/DeviceController";
-import { GoLightBulb } from "react-icons/go";
-import { HiLightBulb } from "react-icons/hi";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,7 +9,7 @@ import {
   SERVO_TOGGLE_REQUEST,
 } from "../modules/device";
 import wrapper from "../store";
-import { END } from "@redux-saga/core";
+import { END } from "redux-saga";
 import { GET_MY_INFO_REQUEST } from "../modules/user";
 import cookies from "next-cookies";
 import axios from "axios";
@@ -20,33 +17,20 @@ import { PageLayout } from "../styles/PageLayout";
 
 const Manage = () => {
   const dispatch = useDispatch();
-  const { ledState, ledToggleLoading, servoToggleLoading, servoState } =
-    useSelector((state: any) => state.device);
-  const handleOnLed = useCallback(() => {
+  const { servoState, ledState } = useSelector((state: any) => state.device);
+
+  const handleToggleLed = useCallback((ledStatus: boolean, index: number) => {
     dispatch({
       type: LED_TOGGLE_REQUEST,
-      payload: "true",
+      payload: { ledStatus: ledStatus ? "false" : "true", ledNum: index + 1 },
+      //ledStatus , ledNum
     });
   }, []);
 
-  const handleOffLed = useCallback(() => {
-    dispatch({
-      type: LED_TOGGLE_REQUEST,
-      payload: "false",
-    });
-  }, []);
-
-  const handleOnServo = useCallback(() => {
+  const handleToggleServo = useCallback((servoStatus: boolean) => {
     dispatch({
       type: SERVO_TOGGLE_REQUEST,
-      payload: "true",
-    });
-  }, []);
-
-  const handleOffServo = useCallback(() => {
-    dispatch({
-      type: SERVO_TOGGLE_REQUEST,
-      payload: "false",
+      payload: servoStatus ? "true" : "false",
     });
   }, []);
 
@@ -55,24 +39,24 @@ const Manage = () => {
       <PageLayout>
         <h1>기기들의 상태 확인과 기기 조작을 해보세요.</h1>
         <span>간단한 ON/OFF동작으로 내 기기를 조작할 수 있습니다.</span>
-        <div className="row">
-          <DeviceController
-            title="🚨LED"
-            onImage={<HiLightBulb />}
-            offImage={<GoLightBulb />}
-            handleOnBtn={handleOnLed}
-            handleOffBtn={handleOffLed}
-            isOn={ledState}
-            isLoading={ledToggleLoading}
-          />
+        <div className="flex_wrap">
+          {ledState.map((led: boolean, index: number) => {
+            return (
+              <DeviceController
+                title={`${index + 1}`}
+                onImage={<BsToggleOn fill="#3181f6" />}
+                offImage={<BsToggleOff />}
+                isOn={led}
+                handler={() => handleToggleLed(led, index)}
+              />
+            );
+          })}
           <DeviceController
             title="🦾Servo Motor(서보 모터)"
-            onImage={<BsToggleOn />}
+            onImage={<BsToggleOn fill="#3181f6" />}
             offImage={<BsToggleOff />}
             isOn={servoState}
-            handleOnBtn={handleOnServo}
-            handleOffBtn={handleOffServo}
-            isLoading={servoToggleLoading}
+            handler={handleToggleServo}
           />
         </div>
       </PageLayout>

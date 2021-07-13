@@ -13,8 +13,9 @@ import {
   SERVO_TOGGLE_SUCCESS,
 } from "../modules/device";
 
-function toggleLedAPI(data: string) {
-  return axios.get(`/led/${data}`);
+function toggleLedAPI(data: any) {
+  //ledStatus , ledNum
+  return axios.get(`/led/${data.ledNum}/${data.ledStatus}`);
 }
 
 function* toggleLed(action: any) {

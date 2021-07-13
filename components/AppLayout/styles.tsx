@@ -16,6 +16,35 @@ export const NavBar = styled.header`
     height: 100%;
     display: flex;
     justify-content: space-around;
+    @media (max-width: 1000px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .user {
+        text-align: center;
+        font-size: 38px !important;
+      }
+      .content {
+        display: none;
+        flex-direction: column;
+        font-size: 24px;
+        li {
+          text-align: center;
+          width: 500px;
+        }
+        li > a {
+          padding: 0px !important;
+        }
+      }
+      .toggle {
+        display: flex !important;
+        justify-content: flex-end;
+        width: 100%;
+      }
+      .active + .content {
+        display: flex;
+      }
+    }
     .user {
       display: flex;
       align-items: center;
@@ -24,7 +53,7 @@ export const NavBar = styled.header`
     }
     .content {
       display: flex;
-      width: 700px;
+      width: 750px;
       justify-content: space-around;
       align-items: center;
       .active {
@@ -39,6 +68,9 @@ export const NavBar = styled.header`
       li > a:hover {
         background-color: rgba(0, 0, 0, 0.2);
       }
+    }
+    .toggle {
+      display: none;
     }
   }
 `;

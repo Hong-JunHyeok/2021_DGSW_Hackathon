@@ -15,12 +15,24 @@ export const PageLayout = styled.div`
     font-family: GmarketSansBold;
   }
   span {
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
   }
   .row {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+  }
+  .col {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+  .flex_wrap {
+    width: 800px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
   }
 `;

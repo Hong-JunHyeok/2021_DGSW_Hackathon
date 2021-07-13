@@ -7,7 +7,7 @@ export const initialState = {
   initError: null,
 
   //LED 토글
-  ledState: false,
+  ledState: [],
   ledToggleLoading: false,
   ledToggleError: null,
 
@@ -34,7 +34,7 @@ const reducer = (state = initialState, action: AnyAction) => {
     switch (action.type) {
       case GET_INIT_REQUEST:
         draft.initLoading = true;
-        draft.ledState = false;
+        draft.ledState = [];
         draft.servoState = false;
         draft.initError = null;
         break;
@@ -49,20 +49,6 @@ const reducer = (state = initialState, action: AnyAction) => {
 
       case LED_TOGGLE_REQUEST:
         draft.ledToggleLoading = true;
-        draft.ledState = false;
-        draft.ledToggleError = null;
-        break;
-      case LED_TOGGLE_SUCCESS:
-        draft.ledState = action.payload;
-        draft.ledToggleLoading = false;
-        break;
-      case LED_TOGGLE_FAILURE:
-        draft.ledToggleError = action.payload;
-        break;
-
-      case LED_TOGGLE_REQUEST:
-        draft.ledToggleLoading = true;
-        draft.ledState = false;
         draft.ledToggleError = null;
         break;
       case LED_TOGGLE_SUCCESS:

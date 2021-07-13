@@ -19,7 +19,13 @@ const HistoryList: VFC<Props> = ({ historyList, title }) => {
         <li key={history.id}>
           <div className="time">{history.time}</div>
           <div className="name">{history.user_name}</div>
-          <div className="status">{history.status === 0 ? "꺼짐" : "껴짐"}</div>
+          <div className="status">
+            {history.status === 0 ? (
+              <span className="war"></span>
+            ) : (
+              <span className="safe"></span>
+            )}
+          </div>
         </li>
       ))}
     </Container>

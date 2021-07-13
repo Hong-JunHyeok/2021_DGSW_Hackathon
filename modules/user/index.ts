@@ -12,7 +12,10 @@ export const initialState = {
 
   usersLoading: false,
   usersError: null,
-  usersData: null,
+  usersData: [],
+
+  grantLoading: false,
+  grantError: null,
 
   me: null,
 };
@@ -29,15 +32,47 @@ export const GET_USERS_REQUEST = "GET_USERS_REQUEST" as const;
 export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS" as const;
 export const GET_USERS_FAILURE = "GET_USERS_FAILURE" as const;
 
+export const GRANT_USER_REQUEST = "GRANT_USER_REQUEST" as const;
+export const GRANT_USER_SUCCESS = "GRANT_USER_SUCCESS" as const;
+export const GRANT_USER_FAILURE = "GRANT_USER_FAILURE" as const;
+
+export const UNGRANT_USER_REQUEST = "UNGRANT_USER_REQUEST" as const;
+export const UNGRANT_USER_SUCCESS = "UNGRANT_USER_SUCCESS" as const;
+export const UNGRANT_USER_FAILURE = "UNGRANT_USER_FAILURE" as const;
+
 export const LOG_OUT = "LOG_OUT" as const;
 
 const reducer = (state = initialState, action: AnyAction) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case UNGRANT_USER_REQUEST:
+        draft.grantError = null;
+        draft.grantLoading = true;
+        break;
+      case UNGRANT_USER_SUCCESS:
+        draft.grantLoading = false;
+        draft.usersData = action.payload;
+        break;
+      case UNGRANT_USER_FAILURE:
+        draft.grantLoading = false;
+        draft.grantError = action.payload;
+        break;
+      case GRANT_USER_REQUEST:
+        draft.grantError = null;
+        draft.grantLoading = true;
+        break;
+      case GRANT_USER_SUCCESS:
+        draft.grantLoading = false;
+        draft.usersData = action.payload;
+        break;
+      case GRANT_USER_FAILURE:
+        draft.grantLoading = false;
+        draft.grantError = action.payload;
+        break;
       case GET_USERS_REQUEST:
         draft.usersError = null;
         draft.usersLoading = true;
-        draft.usersData = null;
+        draft.usersData = [];
         break;
       case GET_USERS_SUCCESS:
         draft.usersLoading = false;

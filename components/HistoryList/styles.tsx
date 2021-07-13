@@ -21,16 +21,37 @@ export const Container = styled.ul`
   li {
     display: flex;
     padding: 10px;
-    border: 1px solid black;
     border-collapse: collapse;
+    margin-bottom: 0;
+    &:nth-child(even) {
+      background-color: #d9dadb;
+    }
     .time {
       flex: 6;
     }
     .name {
       flex: 2;
+      font-weight: bold;
     }
     .status {
       flex: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .war {
+        display: block;
+        background-color: red;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+      }
+      .safe {
+        display: block;
+        background-color: blue;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+      }
     }
   }
 `;

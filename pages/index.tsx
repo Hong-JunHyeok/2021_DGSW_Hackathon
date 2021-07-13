@@ -10,15 +10,6 @@ import { GET_MY_INFO_REQUEST } from "../modules/user";
 import { END } from "redux-saga";
 
 const IndexPage = () => {
-  // useEffect(() => {
-  //   if (isLoginDone) {
-  //     setCookie("access_token", me.result.access_token, {
-  //       path: "/",
-  //       sameSite: true,
-  //     });
-  //   }
-  // }, [isLoginDone]);
-
   return (
     <AppLayout>
       <MainContent />
@@ -28,9 +19,11 @@ const IndexPage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    // console.log(context.req.headers.cookie);
-    const allCookies = cookies(context);
-    axios.defaults.headers.Authorization = `Bearer ${allCookies.access_token}`;
+    // const allCookies = cookies(context);
+    // axios.defaults.headers.Authorization = "";
+    // if (context.req && allCookies.access_token) {
+    //   axios.defaults.headers.Authorization = allCookies.access_token;
+    // }
 
     context.store.dispatch({
       type: GET_MY_INFO_REQUEST,
