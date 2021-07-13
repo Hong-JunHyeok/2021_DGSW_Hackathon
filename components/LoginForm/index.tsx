@@ -9,11 +9,11 @@ import { RootState } from "../../modules";
 
 interface Props {
   closeModal: () => void;
+  setIsLoginComponent: any;
 }
 
-const LoginForm: VFC<Props> = ({ closeModal }) => {
+const LoginForm: VFC<Props> = ({ closeModal, setIsLoginComponent }) => {
   const dispatch = useDispatch();
-  const { me, loginDone } = useSelector((state: any) => state.user);
 
   const [name, onChangeName] = useInput("");
   const [password, onChangePassword] = useInput("");
@@ -33,7 +33,7 @@ const LoginForm: VFC<Props> = ({ closeModal }) => {
     },
     [name, password]
   );
-  // ! 토큰 저장 오류 해결 할 것
+
   return (
     <ModalContainer>
       <h1>로그인</h1>
@@ -42,6 +42,9 @@ const LoginForm: VFC<Props> = ({ closeModal }) => {
         <input type="password" value={password} onChange={onChangePassword} />
         <Button onClick={handleSubmit}>로그인</Button>
       </form>
+      <div className="go_link" onClick={() => setIsLoginComponent(false)}>
+        회원가입
+      </div>
     </ModalContainer>
   );
 };

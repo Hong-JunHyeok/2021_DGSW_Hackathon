@@ -17,8 +17,33 @@ import {
   UNGRANT_USER_SUCCESS,
   UNGRANT_USER_FAILURE,
   UNGRANT_USER_REQUEST,
+  SIGN_UP_REQUEST,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_FAILURE,
 } from "../modules/user";
 import { AnyAction } from "redux";
+import { toast } from "react-toastify";
+
+function signUpAPI(data: { name: string; password: string }) {
+  return axios.post("/signup", data);
+}
+
+function* signUp(action: AnyAction) {
+  try {
+    const result: AxiosResponse = yield call(signUpAPI, action.payload);
+
+    yield put({
+      type: SIGN_UP_SUCCESS,
+      payload: result.data.result,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: SIGN_UP_FAILURE,
+      payload: error.response.data,
+    });
+  }
+}
 
 function loginAPI(data: { name: string; password: string }) {
   return axios.post("/login", data);
@@ -31,12 +56,16 @@ function* login(action: AnyAction) {
       path: "/",
     });
 
+    toast.success("환영합니다.");
     yield put({
       type: LOG_IN_SUCCESS,
       payload: result.data.result,
     });
   } catch (error) {
     console.error(error);
+    if (error.response.status === 403) {
+      toast.error("없는 회원입니다.");
+    }
     yield put({
       type: LOG_IN_FAILURE,
       payload: error.response.data,
@@ -51,7 +80,6 @@ function getMyInfoAPI() {
 function* getMyInfo() {
   try {
     const result: AxiosResponse = yield call(getMyInfoAPI);
-    console.log(result.data);
     yield put({
       type: GET_MY_INFO_SUCCESS,
       payload: result.data.user,
@@ -147,9 +175,14 @@ function* watchUngrantUser() {
   yield takeLatest(UNGRANT_USER_REQUEST, unGrantUser);
 }
 
+function* watchSignUp() {
+  yield takeLatest(SIGN_UP_REQUEST, signUp);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchLogin),
+    fork(watchSignUp),
     fork(watchGetMyInfo),
     fork(watchGetUsers),
     fork(watchGrantUser),

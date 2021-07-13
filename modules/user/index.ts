@@ -6,6 +6,10 @@ export const initialState = {
   loginError: null,
   loginDone: false,
 
+  signUpLoading: false,
+  signUpError: null,
+  signUpDone: false,
+
   loadMyInfoLoading: false,
   loadMyInfoDone: false,
   loadMyInfoError: null,
@@ -27,6 +31,10 @@ export const GET_MY_INFO_FAILURE = "GET_MY_INFO_FAILURE" as const;
 export const LOG_IN_REQUEST = "LOG_IN_REQUEST" as const;
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS" as const;
 export const LOG_IN_FAILURE = "LOG_IN_FAILURE" as const;
+
+export const SIGN_UP_REQUEST = "SIGN_UP_REQUEST" as const;
+export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS" as const;
+export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE" as const;
 
 export const GET_USERS_REQUEST = "GET_USERS_REQUEST" as const;
 export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS" as const;
@@ -111,6 +119,19 @@ const reducer = (state = initialState, action: AnyAction) => {
       case LOG_IN_FAILURE:
         draft.loginError = action.payload;
         draft.loginLoading = false;
+        break;
+      case SIGN_UP_REQUEST:
+        draft.signUpLoading = true;
+        draft.signUpError = null;
+        draft.signUpDone = false;
+        break;
+      case SIGN_UP_SUCCESS:
+        draft.signUpLoading = false;
+        draft.signUpDone = true;
+        break;
+      case SIGN_UP_FAILURE:
+        draft.signUpError = action.payload;
+        draft.signUpLoading = false;
         break;
       case LOG_OUT:
         draft.me = null;

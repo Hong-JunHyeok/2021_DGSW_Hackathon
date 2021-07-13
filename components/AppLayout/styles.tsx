@@ -38,12 +38,15 @@ export const NavBar = styled.header`
       }
       .toggle {
         display: flex !important;
+      }
+      /* .toggle {
+        display: flex !important;
         justify-content: flex-end;
         width: 100%;
       }
       .active + .content {
         display: flex;
-      }
+      } */
     }
     .user {
       display: flex;

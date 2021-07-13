@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import AppLayout from "../components/AppLayout";
+import allCookies from "next-cookies";
 import DeviceController from "../components/DeviceController";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,10 +28,10 @@ const Manage = () => {
     });
   }, []);
 
-  const handleToggleServo = useCallback((servoStatus: boolean) => {
+  const handleToggleServo = useCallback((servoState: boolean) => {
     dispatch({
       type: SERVO_TOGGLE_REQUEST,
-      payload: servoStatus ? "true" : "false",
+      payload: servoState ? "false" : "true",
     });
   }, []);
 
@@ -56,7 +57,7 @@ const Manage = () => {
             onImage={<BsToggleOn fill="#3181f6" />}
             offImage={<BsToggleOff />}
             isOn={servoState}
-            handler={handleToggleServo}
+            handler={() => handleToggleServo(servoState)}
           />
         </div>
       </PageLayout>
@@ -67,7 +68,11 @@ const Manage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
     const allCookies = cookies(context);
-    axios.defaults.headers.Authorization = `Bearer ${allCookies.access_token}`;
+
+    axios.defaults.headers.Authorization = "";
+    if (context.req && allCookies.access_token) {
+      axios.defaults.headers.Authorization = `Bearer ${allCookies.access_token}`;
+    }
 
     context.store.dispatch({
       type: GET_INIT_REQUEST,

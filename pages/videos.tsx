@@ -24,7 +24,11 @@ const Videos = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
     const allCookies = cookies(context);
-    axios.defaults.headers.Authorization = `Bearer ${allCookies.access_token}`;
+
+    axios.defaults.headers.Authorization = "";
+    if (context.req && allCookies.access_token) {
+      axios.defaults.headers.Authorization = `Bearer ${allCookies.access_token}`;
+    }
 
     context.store.dispatch({
       type: GET_VIDEOS_REQUEST,

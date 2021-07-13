@@ -4,6 +4,7 @@ import Button from "../Button";
 import { Container } from "./styles";
 import useModal from "../../hooks/useModal";
 import LoginForm from "../LoginForm";
+import SignUpForm from "../SignUpForm";
 import { useSelector } from "react-redux";
 import { RootState } from "../../modules";
 
@@ -11,6 +12,8 @@ const MainContent = () => {
   const { push } = useRouter();
   const { me } = useSelector((state: any) => state.user);
   const { ModalPortal, openModal, closeModal } = useModal();
+
+  const [isLoginComponent, setIsLoginComponent] = useState(true);
 
   return (
     <Container>
@@ -43,7 +46,17 @@ const MainContent = () => {
       )}
 
       <ModalPortal>
-        <LoginForm closeModal={closeModal} />
+        {isLoginComponent ? (
+          <LoginForm
+            closeModal={closeModal}
+            setIsLoginComponent={setIsLoginComponent}
+          />
+        ) : (
+          <SignUpForm
+            closeModal={closeModal}
+            setIsLoginComponent={setIsLoginComponent}
+          />
+        )}
       </ModalPortal>
     </Container>
   );
