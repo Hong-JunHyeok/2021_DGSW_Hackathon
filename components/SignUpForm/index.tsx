@@ -30,10 +30,7 @@ const SignUpForm: VFC<Props> = ({ closeModal, setIsLoginComponent }) => {
         },
       });
 
-      if (signUpDone) {
-        toast.success("회원가입에 성공했습니다.");
-        setIsLoginComponent(true);
-      }
+      closeModal();
     },
     [name, password, signUpDone]
   );

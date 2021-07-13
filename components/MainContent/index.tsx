@@ -1,12 +1,11 @@
 import { useRouter } from "next/dist/client/router";
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "../Button";
 import { Container } from "./styles";
 import useModal from "../../hooks/useModal";
 import LoginForm from "../LoginForm";
 import SignUpForm from "../SignUpForm";
 import { useSelector } from "react-redux";
-import { RootState } from "../../modules";
 
 const MainContent = () => {
   const { push } = useRouter();
@@ -62,4 +61,4 @@ const MainContent = () => {
   );
 };
 
-export default memo(MainContent);
+export default MainContent;

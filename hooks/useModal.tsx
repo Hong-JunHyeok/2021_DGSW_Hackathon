@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 
@@ -23,13 +23,13 @@ const Container = styled.div`
 const useModal = () => {
   const [modalOpened, setModalOpened] = useState(false);
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setModalOpened(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setModalOpened(false);
-  };
+  }, []);
 
   interface IProps {
     children: React.ReactNode;

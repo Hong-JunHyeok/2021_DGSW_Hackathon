@@ -8,6 +8,7 @@ export const Container = styled.ul`
     padding: 10px;
     display: flex;
     font-size: 20px;
+    color: white;
     .time {
       flex: 6;
     }
@@ -16,6 +17,9 @@ export const Container = styled.ul`
     }
     .status {
       flex: 2;
+    }
+    .index {
+      flex: 1;
     }
   }
   li {
@@ -35,23 +39,23 @@ export const Container = styled.ul`
     }
     .status {
       flex: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       .war {
-        display: block;
-        background-color: red;
+        display: flex;
+        background-color: #ff605c;
         width: 15px;
         height: 15px;
         border-radius: 50%;
       }
       .safe {
-        display: block;
-        background-color: blue;
+        display: flex;
+        background-color: #00ca4e;
         width: 15px;
         height: 15px;
         border-radius: 50%;
       }
+    }
+    .index {
+      flex: 1;
     }
   }
 `;

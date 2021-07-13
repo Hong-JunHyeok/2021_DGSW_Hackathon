@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import AppLayout from "../components/AppLayout";
-import allCookies from "next-cookies";
 import DeviceController from "../components/DeviceController";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
+import { FaDoorClosed, FaDoorOpen } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import {
   GET_INIT_REQUEST,
@@ -24,7 +24,6 @@ const Manage = () => {
     dispatch({
       type: LED_TOGGLE_REQUEST,
       payload: { ledStatus: ledStatus ? "false" : "true", ledNum: index + 1 },
-      //ledStatus , ledNum
     });
   }, []);
 
@@ -35,30 +34,37 @@ const Manage = () => {
     });
   }, []);
 
+  const LED_LIST = ["현관문 앞", "거실+주방", "화장실", "방1", "방2", "방3"];
+
   return (
     <AppLayout>
       <PageLayout>
         <h1>기기들의 상태 확인과 기기 조작을 해보세요.</h1>
         <span>간단한 ON/OFF동작으로 내 기기를 조작할 수 있습니다.</span>
         <div className="flex_wrap">
-          {ledState.map((led: boolean, index: number) => {
-            return (
-              <DeviceController
-                title={`${index + 1}`}
-                onImage={<BsToggleOn fill="#3181f6" />}
-                offImage={<BsToggleOff />}
-                isOn={led}
-                handler={() => handleToggleLed(led, index)}
-              />
-            );
-          })}
-          <DeviceController
-            title="🦾Servo Motor(서보 모터)"
-            onImage={<BsToggleOn fill="#3181f6" />}
-            offImage={<BsToggleOff />}
-            isOn={servoState}
-            handler={() => handleToggleServo(servoState)}
-          />
+          <div className="servo_container">
+            <DeviceController
+              title="현관문"
+              onImage={<FaDoorOpen fill="#3181f6" />}
+              offImage={<FaDoorClosed />}
+              isOn={servoState}
+              handler={() => handleToggleServo(servoState)}
+            />
+          </div>
+          <hr />
+          <div className="led_container">
+            {ledState.map((led: boolean, index: number) => {
+              return (
+                <DeviceController
+                  title={`${LED_LIST[index]}`}
+                  onImage={<BsToggleOn fill="#3181f6" />}
+                  offImage={<BsToggleOff />}
+                  isOn={led}
+                  handler={() => handleToggleLed(led, index)}
+                />
+              );
+            })}
+          </div>
         </div>
       </PageLayout>
     </AppLayout>
@@ -67,18 +73,18 @@ const Manage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    const allCookies = cookies(context);
-
     axios.defaults.headers.Authorization = "";
-    if (context.req && allCookies.access_token) {
-      axios.defaults.headers.Authorization = `Bearer ${allCookies.access_token}`;
+    const cookie = context.req ? cookies(context).access_token : "";
+
+    if (context.req && cookie) {
+      axios.defaults.headers.Authorization = `Bearer ${cookie}`;
     }
 
     context.store.dispatch({
-      type: GET_INIT_REQUEST,
+      type: GET_MY_INFO_REQUEST,
     });
     context.store.dispatch({
-      type: GET_MY_INFO_REQUEST,
+      type: GET_INIT_REQUEST,
     });
 
     context.store.dispatch(END);

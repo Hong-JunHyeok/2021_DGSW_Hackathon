@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 import AppLayout from "../components/AppLayout";
 import SqlCommander from "../components/SqlCommander";
 import SqlDataList from "../components/SqlDataList";

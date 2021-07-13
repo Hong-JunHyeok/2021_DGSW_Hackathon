@@ -32,12 +32,14 @@ function* signUp(action: AnyAction) {
   try {
     const result: AxiosResponse = yield call(signUpAPI, action.payload);
 
+    toast.success("회원가입 성공했습니다.");
     yield put({
       type: SIGN_UP_SUCCESS,
       payload: result.data.result,
     });
   } catch (error) {
     console.error(error);
+    toast.error("에러 발생");
     yield put({
       type: SIGN_UP_FAILURE,
       payload: error.response.data,
@@ -56,16 +58,15 @@ function* login(action: AnyAction) {
       path: "/",
     });
 
-    toast.success("환영합니다.");
+    toast.success("로그인에 성공했습니다.");
     yield put({
       type: LOG_IN_SUCCESS,
       payload: result.data.result,
     });
   } catch (error) {
     console.error(error);
-    if (error.response.status === 403) {
-      toast.error("없는 회원입니다.");
-    }
+
+    toast.error("에러발생");
     yield put({
       type: LOG_IN_FAILURE,
       payload: error.response.data,

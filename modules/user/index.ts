@@ -119,6 +119,7 @@ const reducer = (state = initialState, action: AnyAction) => {
       case LOG_IN_FAILURE:
         draft.loginError = action.payload;
         draft.loginLoading = false;
+        draft.loginDone = false;
         break;
       case SIGN_UP_REQUEST:
         draft.signUpLoading = true;

@@ -2,7 +2,9 @@
   "name": "2021_DGSW_Hackathon",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next -p 3080"
+    "dev": "next -p 3080",
+    "build": "next build",
+    "start": "next start"
   },
   "repository": {
     "type": "git",

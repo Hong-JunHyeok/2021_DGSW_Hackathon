@@ -30,9 +30,23 @@ export const PageLayout = styled.div`
     flex-direction: column;
   }
   .flex_wrap {
-    width: 800px;
+    width: 1200px;
     display: flex;
     justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
     flex-wrap: wrap;
+    .servo_container {
+      margin-top: 30px;
+      width: 60%;
+      display: flex;
+      div {
+        width: 100%;
+      }
+    }
+    .led_container {
+      display: flex;
+      width: 60%;
+    }
   }
 `;

@@ -6,11 +6,11 @@ export const NavBar = styled.header`
   left: 0;
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(50px);
+  z-index: 10;
   .nav_no_top {
     border-bottom: 1px solid black;
   }
   .container {
-    padding: 10px;
     max-width: 1200px;
     margin: 0 auto;
     height: 100%;
@@ -22,7 +22,7 @@ export const NavBar = styled.header`
       align-items: center;
       .user {
         text-align: center;
-        font-size: 38px !important;
+        font-size: 38px;
       }
       .content {
         display: none;
@@ -38,15 +38,12 @@ export const NavBar = styled.header`
       }
       .toggle {
         display: flex !important;
-      }
-      /* .toggle {
-        display: flex !important;
         justify-content: flex-end;
         width: 100%;
       }
       .active + .content {
         display: flex;
-      } */
+      }
     }
     .user {
       display: flex;
@@ -62,13 +59,22 @@ export const NavBar = styled.header`
       .active {
         font-weight: bold;
       }
+      li {
+        cursor: pointer;
+        display: flex;
+        padding: 0 10px;
+        align-items: center;
+        height: 100%;
+      }
       li > a {
-        padding: 20px;
         text-decoration: none;
         color: black;
-        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
       }
-      li > a:hover {
+      li:hover {
         background-color: rgba(0, 0, 0, 0.2);
       }
     }

@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { useCookies } from "react-cookie";
-import { useSelector } from "react-redux";
 import AppLayout from "../components/AppLayout";
 import MainContent from "../components/MainContent";
 import wrapper from "../store";
@@ -19,11 +17,11 @@ const IndexPage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    const allCookies = cookies(context);
-
     axios.defaults.headers.Authorization = "";
-    if (context.req && allCookies.access_token) {
-      axios.defaults.headers.Authorization = `Bearer ${allCookies.access_token}`;
+    const cookie = context.req ? cookies(context).access_token : "";
+
+    if (context.req && cookie) {
+      axios.defaults.headers.Authorization = `Bearer ${cookie}`;
     }
 
     context.store.dispatch({

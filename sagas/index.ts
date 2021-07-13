@@ -10,31 +10,17 @@ import historySaga from "./history";
 import { toast } from "react-toastify";
 
 axios.defaults.baseURL = "http://192.168.137.116:5001";
+axios.defaults.headers = {
+  "Cache-Control": "no-cache",
+  Accept: "application/json",
+  Pragma: "no-cache",
+};
 
-if (!axios.defaults.headers.Authorization) {
-  const accessToken = Cookies.get("access_token");
+const accessToken = Cookies.get("access_token");
 
-  axios.defaults.headers.Authorization = accessToken
-    ? `Bearer ${accessToken}`
-    : "";
-}
-
-// axios.interceptors.response.use(
-//   (res) => {
-//     return res;
-//   },
-//   (err) => {
-//     console.error(err);
-//     if (err.response.status === 401) {
-//       console.log("토큰 만료");
-//       if (!isServer) {
-//         toast.warn("세션이 만료되었습니다. 다시 로그인해주세요.");
-//       }
-//     } else {
-//       return err;
-//     }
-//   }
-// );
+axios.defaults.headers.Authorization = accessToken
+  ? `Bearer ${accessToken}`
+  : "";
 
 export default function* rootSaga() {
   yield all([

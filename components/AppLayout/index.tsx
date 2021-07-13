@@ -57,21 +57,26 @@ const AppLayout: FC = ({ children }) => {
               <Link href="/">Main</Link>
             </li>
             <li className={"/manage" === pathname ? "active" : ""}>
-              <Link href="/manage">IOT Manager</Link>
+              <Link href="/manage">IoT Manager</Link>
             </li>
             {me?.isAdmin === 2 && (
               <li className={"/sql" === pathname ? "active" : ""}>
                 <Link href="/sql">SQL commander</Link>
               </li>
             )}
-            <li className={"/videos" === pathname ? "active" : ""}>
-              <Link href="/videos">Videos</Link>
-            </li>
-            <li className={"/history" === pathname ? "active" : ""}>
-              <Link href="/history">history</Link>
-            </li>
+            {me?.isAdmin !== 0 && (
+              <>
+                <li className={"/videos" === pathname ? "active" : ""}>
+                  <Link href="/videos">Videos</Link>
+                </li>
+                <li className={"/history" === pathname ? "active" : ""}>
+                  <Link href="/history">History</Link>
+                </li>
+              </>
+            )}
+
             <li className={"/admin" === pathname ? "active" : ""}>
-              <Link href="/admin">admin</Link>
+              <Link href="/admin">Admin</Link>
             </li>
 
             {me && (

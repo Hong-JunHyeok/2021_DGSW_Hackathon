@@ -2,7 +2,6 @@ import axios from "axios";
 import cookies from "next-cookies";
 import React from "react";
 import { END } from "redux-saga";
-import styled from "styled-components";
 import AppLayout from "../components/AppLayout";
 import Video from "../components/Video";
 import { GET_MY_INFO_REQUEST } from "../modules/user";
@@ -23,20 +22,21 @@ const Videos = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    const allCookies = cookies(context);
-
     axios.defaults.headers.Authorization = "";
-    if (context.req && allCookies.access_token) {
-      axios.defaults.headers.Authorization = `Bearer ${allCookies.access_token}`;
+    const cookie = context.req ? cookies(context).access_token : "";
+
+    if (context.req && cookie) {
+      axios.defaults.headers.Authorization = `Bearer ${cookie}`;
     }
+
+    context.store.dispatch({
+      type: GET_MY_INFO_REQUEST,
+    });
 
     context.store.dispatch({
       type: GET_VIDEOS_REQUEST,
     });
 
-    context.store.dispatch({
-      type: GET_MY_INFO_REQUEST,
-    });
     context.store.dispatch(END);
     await context.store.sagaTask!.toPromise();
   }

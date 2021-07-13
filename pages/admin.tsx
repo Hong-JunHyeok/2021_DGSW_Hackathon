@@ -1,7 +1,7 @@
 import { END } from "redux-saga";
 import axios from "axios";
 import cookies from "next-cookies";
-import React, { useEffect } from "react";
+import React from "react";
 import AppLayout from "../components/AppLayout";
 import { GET_MY_INFO_REQUEST, GET_USERS_REQUEST } from "../modules/user";
 import wrapper from "../store";
@@ -24,12 +24,13 @@ const Admin = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    const allCookies = cookies(context);
-
     axios.defaults.headers.Authorization = "";
-    if (context.req && allCookies.access_token) {
-      axios.defaults.headers.Authorization = `Bearer ${allCookies.access_token}`;
+    const cookie = context.req ? cookies(context).access_token : "";
+
+    if (context.req && cookie) {
+      axios.defaults.headers.Authorization = `Bearer ${cookie}`;
     }
+
     context.store.dispatch({
       type: GET_MY_INFO_REQUEST,
     });

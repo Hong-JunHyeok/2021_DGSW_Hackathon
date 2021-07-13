@@ -1,4 +1,4 @@
-import React, { memo, useCallback, VFC } from "react";
+import React, { useCallback, VFC } from "react";
 import { useDispatch } from "react-redux";
 import useInput from "../../hooks/useInput";
 import { DB_SEARCH_REQUEST } from "../../modules/db";

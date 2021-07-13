@@ -8,6 +8,13 @@ export const VideoList = styled.ul`
     }
     .row {
       align-items: center;
+      h2 {
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+    }
+    .video_item {
+      justify-content: space-around;
     }
     padding: 20px;
     border-bottom: 1px solid gray;
