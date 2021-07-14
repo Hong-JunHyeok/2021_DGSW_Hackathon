@@ -7,6 +7,8 @@ import { ModalContainer } from "./styles";
 import { useCookies } from "react-cookie";
 import { RootState } from "../../modules";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 interface Props {
   closeModal: () => void;
@@ -19,7 +21,7 @@ const LoginForm: VFC<Props> = ({ closeModal, setIsLoginComponent }) => {
   const [name, onChangeName] = useInput("");
   const [password, onChangePassword] = useInput("");
 
-  const { loginDone, loginLoading } = useSelector((state: any) => state.user);
+  const { token, loginLoading } = useSelector((state: any) => state.user);
 
   const handleSubmit = useCallback(
     (e) => {
@@ -31,11 +33,13 @@ const LoginForm: VFC<Props> = ({ closeModal, setIsLoginComponent }) => {
           password,
         },
       });
-
-      closeModal();
     },
-    [name, password, loginDone]
+    [name, password]
   );
+
+  useEffect(() => {
+    axios.defaults.headers.Authorization = `Bearer ${token}`;
+  }, [token]);
 
   return (
     <ModalContainer>

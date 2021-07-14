@@ -5,6 +5,7 @@ export const initialState = {
   loginLoading: false,
   loginError: null,
   loginDone: false,
+  token: "",
 
   signUpLoading: false,
   signUpError: null,
@@ -114,6 +115,7 @@ const reducer = (state = initialState, action: AnyAction) => {
       case LOG_IN_SUCCESS:
         draft.loginLoading = false;
         draft.me = action.payload.user;
+        draft.token = action.payload.access_token;
         draft.loginDone = true;
         break;
       case LOG_IN_FAILURE:

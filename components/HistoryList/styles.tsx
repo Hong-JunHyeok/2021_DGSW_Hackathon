@@ -19,7 +19,7 @@ export const Container = styled.ul`
       flex: 2;
     }
     .index {
-      flex: 1;
+      flex: 2;
     }
   }
   li {
@@ -39,6 +39,10 @@ export const Container = styled.ul`
     }
     .status {
       flex: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       .war {
         display: flex;
         background-color: #ff605c;
@@ -55,7 +59,7 @@ export const Container = styled.ul`
       }
     }
     .index {
-      flex: 1;
+      flex: 2;
     }
   }
 `;

@@ -15,6 +15,7 @@ import { GET_MY_INFO_REQUEST } from "../modules/user";
 import cookies from "next-cookies";
 import axios from "axios";
 import { PageLayout } from "../styles/PageLayout";
+import { LED_LIST } from "../array/ledList";
 
 const Manage = () => {
   const dispatch = useDispatch();
@@ -33,8 +34,6 @@ const Manage = () => {
       payload: servoState ? "false" : "true",
     });
   }, []);
-
-  const LED_LIST = ["현관문 앞", "거실+주방", "화장실", "방1", "방2", "방3"];
 
   return (
     <AppLayout>

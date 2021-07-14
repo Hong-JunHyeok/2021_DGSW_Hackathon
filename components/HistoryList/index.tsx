@@ -1,4 +1,6 @@
 import React, { VFC } from "react";
+import { LED_LIST } from "../../array/ledList";
+import { getExcludeGMT } from "../../util/dateFormatter";
 import { Container } from "./styles";
 
 interface Props {
@@ -19,9 +21,11 @@ const HistoryList: VFC<Props> = ({ historyList, title, isLed }) => {
       </div>
       {historyList.map((history) => (
         <li key={history.id}>
-          <div className="time">{history.time}</div>
+          <div className="time">{getExcludeGMT(history.time)}</div>
           <div className="name">{history.user_name}</div>
-          {isLed && <div className="index">{history.led_number}</div>}
+          {isLed && (
+            <div className="index">{LED_LIST[history.led_number - 1]}</div>
+          )}
           <div className="status">
             {history.status === 0 ? (
               <span className="war"></span>
